@@ -21,11 +21,11 @@ def PostLogin(request):
         if user!=None:
             login(request,user)
             if user.user_type=="1":
-                return HttpResponseRedirect('/admin')
+                return HttpResponseRedirect(reverse('admin'))
             elif user.user_type=="2":
-                return HttpResponseRedirect(reverse("/"))
+                return HttpResponseRedirect(reverse("home"))
             else:
-                return HttpResponseRedirect(reverse("/"))
+                return HttpResponseRedirect(reverse("home"))
         else:
             messages.error(request,"Invalid Login Details")
             return HttpResponseRedirect("/login")
@@ -33,4 +33,4 @@ def PostLogin(request):
 
 def LogOut(request):
     logout(request)
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect(reverse("home"))

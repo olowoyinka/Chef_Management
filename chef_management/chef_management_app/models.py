@@ -30,7 +30,7 @@ class RegularUser(models.Model):
     id = models.AutoField(primary_key=True)
     admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
     image_url = models.FileField()
-    phone_number = models.IntegerField(max_length=20)
+    phone_number = models.CharField(max_length=255)
     join_date = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
 
