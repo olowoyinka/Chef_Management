@@ -16,6 +16,28 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from django.conf.urls.static import static
+#from chef_management_app import views
+from chef_management_app.views import homeView
+from chef_management_app.views import loginView
+from chef_management_app.views import adminView
+from chef_management_app.views import chefView
+from chef_management import settings
+
+
 urlpatterns = [
+    path('', homeView.HomePage),
     path('admin/', admin.site.urls),
-]
+
+    #Login
+    path('login', loginView.GetLogin, name="login"),
+    path('postlogin', loginView.PostLogin, name="postlogin"),
+    path('logout', loginView.LogOut, name="logout"),
+
+    #Admin
+    path('admin', adminView.HomePage, name="admin"),
+ 
+    #Chef
+    path('chef_register', chefView.GetRegister, name="chef_register"),
+    path('post_chef_register', chefView.PostRegister, name="post_chef_register")
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
