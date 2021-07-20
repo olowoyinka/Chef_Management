@@ -5,40 +5,13 @@ from django.shortcuts import render
 from django.urls import reverse
 
 
-from chef_management_app.Form.regularuserform import AddRegularUserForm, EditRegularUserForm, EditRegularUserImageForm
+from chef_management_app.Form.regularuserform import EditRegularUserForm, EditRegularUserImageForm
 from chef_management_app.models import CustomUser, RegularUser
 
 
-def GetRegister(request):
-    form = AddRegularUserForm()
-    return render(request, "regularuser/register.html", { "form":form } )
 
-
-def PostRegister(request):
-    if request.method!="POST":
-        return HttpResponse("Method Not Allowed")
-    else:
-        form = AddRegularUserForm(request.POST,request.FILES)
-        if form.is_valid():
-            first_name=form.cleaned_data["first_name"]
-            last_name=form.cleaned_data["last_name"]
-            username=form.cleaned_data["username"]
-            email=form.cleaned_data["email"]
-            password=form.cleaned_data["password"]
-            phone_number=form.cleaned_data["phone_number"]
-
-            try:
-                user = CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=3)
-                user.regularuser.phone_number = phone_number
-                user.save()
-                messages.success(request,"Successfully Added New User")
-                return HttpResponseRedirect(reverse("user_register"))
-            except:
-                messages.error(request,"Failed to Register New User")
-                return HttpResponseRedirect(reverse("user_register"))
-        else:
-            form = AddRegularUserForm(request.POST)
-            return render(request, "regularuser/register.html", {"form": form})
+def HomePage(request):
+    return render(request, "RegularUser/home.html")
 
 
 def GetEditRegularUser(request):

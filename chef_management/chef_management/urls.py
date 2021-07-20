@@ -19,7 +19,6 @@ from django.urls import path
 from django.conf.urls.static import static
 #from chef_management_app import views
 from chef_management_app.views import homeView
-from chef_management_app.views import loginView
 from chef_management_app.views import adminView
 from chef_management_app.views import chefView
 from chef_management_app.views import regularUserView
@@ -31,16 +30,17 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     #Login
-    path('login', loginView.GetLogin, name="login"),
-    path('postlogin', loginView.PostLogin, name="postlogin"),
-    path('logout', loginView.LogOut, name="logout"),
+    path('login', homeView.GetLogin, name="login"),
+    path('postlogin', homeView.PostLogin, name="postlogin"),
+    path('logout', homeView.LogOut, name="logout"),
 
     #Admin
-    path('admin', adminView.HomePage, name="admin"),
+    path('admin', adminView.HomePage, name="admin_home"),
  
     #Chef
-    path('chef_register', chefView.GetRegister, name="chef_register"),
-    path('post_chef_register', chefView.PostRegister, name="post_chef_register"),
+    path('chef_home', chefView.HomePage, name="chef_home"),
+    path('chef_register', homeView.GetChefRegister, name="chef_register"),
+    path('post_chef_register', homeView.PostChefRegister, name="post_chef_register"),
     path('edit_chef', chefView.GetEditChef, name="edit_chef"),
     path('post_edit_chef', chefView.PostEditChef, name="post_edit_chef"),
     path('edit_chef_image', chefView.GetImageChef, name="edit_chef_image"),
@@ -48,8 +48,9 @@ urlpatterns = [
     path('remove_edit_chef_image', chefView.RemoveImageChef, name="remove_edit_chef_image"),
 
     #User
-    path('user_register', regularUserView.GetRegister, name="user_register"),
-    path('post_user_register', regularUserView.PostRegister, name="post_user_register"),
+    path('user_home', regularUserView.HomePage, name="user_home"),
+    path('user_register', homeView.GetRegularUserRegister, name="user_register"),
+    path('post_user_register', homeView.PostRegularUserRegister, name="post_user_register"),
     path('edit_user', regularUserView.GetEditRegularUser, name="edit_user"),
     path('post_edit_user', regularUserView.PostEditRegularUser, name="post_edit_user"),
     path('edit_user_image', regularUserView.GetImageRegularUser, name="edit_user_image"),
