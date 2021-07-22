@@ -7,29 +7,32 @@ class LoginCheckMiddleWare(MiddlewareMixin):
 
     def process_view(self,request,view_func,view_args,view_kwargs):
         modulename=view_func.__module__
-        print(modulename) 
         user=request.user
         if user.is_authenticated:
             if user.user_type == "1":
                 if modulename == "chef_management_app.views.adminView":
                     pass
-                elif modulename == "chef_management_app.views.homeView" or modulename == "django.views.static":
+                elif modulename == "chef_management_app.views.homeView":
                     pass
                 else:
                     return HttpResponseRedirect(reverse("admin_home"))
             elif user.user_type == "2":
                 if modulename == "chef_management_app.views.chefView":
                     pass
+<<<<<<< HEAD
                 elif modulename == "chef_management_app.views.recipeView":
                     pass
                 elif modulename == "chef_management_app.views.homeView" or modulename == "django.views.static":
+=======
+                elif modulename == "chef_management_app.views.homeView":
+>>>>>>> parent of d3149f3... worked on upload muiltiple feature image for chef
                     pass
                 else:
                     return HttpResponseRedirect(reverse("chef_home"))
             elif user.user_type == "3":
                 if modulename == "chef_management_app.views.regularUserView":
                     pass
-                elif modulename == "chef_management_app.views.homeView" or modulename == "django.views.static":
+                elif modulename == "chef_management_app.views.homeView":
                     pass
                 else:
                     return HttpResponseRedirect(reverse("user_home"))
@@ -37,9 +40,7 @@ class LoginCheckMiddleWare(MiddlewareMixin):
                 return HttpResponseRedirect(reverse("login"))
 
         else:
-            if modulename == "chef_management_app.views.homeView" or modulename == "django.views.static":
-                pass
-            elif request.path == reverse("login") or request.path == reverse("postlogin"):
+            if request.path == reverse("login") or request.path == reverse("postlogin"):
                 pass
             else:
                 return HttpResponseRedirect(reverse("login"))

@@ -7,8 +7,7 @@
     <div class="row">
         <div class="col-md-4">
             <section>
-                {% url 'login' as action_path %}
-                <form action="{{ action_path }}" method="post">
+                <form action="/postlogin" method="post">
                     {% csrf_token %}
                     <h4>Use a local account to log in.</h4>
                     <hr />

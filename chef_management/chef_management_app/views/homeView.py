@@ -14,9 +14,13 @@ def HomePage(request):
     return render(request, "Home/welcome.html")
 
 
-def Login(request):
+def GetLogin(request):
+    return render(request,"Home/login.html")
+
+
+def PostLogin(request):
     if request.method!="POST":
-        return render(request,"Home/login.html")
+        return HttpResponse("<h2>Method Not Allowed</h2>")
     else:
         user=EmailBackEnd.authenticate(request,username=request.POST.get("email"),password=request.POST.get("password"))
         if user!=None:
@@ -37,11 +41,14 @@ def LogOut(request):
     return HttpResponseRedirect(reverse("home"))
 
 
+def GetChefRegister(request):
+    form = AddChefForm()
+    return render(request, "chef/register.html", { "form":form } )
 
-def ChefRegister(request):
+
+def PostChefRegister(request):
     if request.method!="POST":
-        form = AddChefForm()
-        return render(request, "chef/register.html", { "form":form } )
+        return HttpResponse("Method Not Allowed")
     else:
         form = AddChefForm(request.POST,request.FILES)
         if form.is_valid():
@@ -56,7 +63,6 @@ def ChefRegister(request):
             try:
                 user = CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=2)
                 user.chefuser.chef_name = chef_name
-                user.chefuser.image_url = "chef/login-img.png"
                 user.save()
                 messages.success(request,"Successfully Added New Chef")
                 return HttpResponseRedirect(reverse("chef_register"))
@@ -68,10 +74,14 @@ def ChefRegister(request):
             return render(request, "chef/register.html", {"form": form})
 
 
-def RegularUserRegister(request):
+def GetRegularUserRegister(request):
+    form = AddRegularUserForm()
+    return render(request, "regularuser/register.html", { "form":form } )
+
+
+def PostRegularUserRegister(request):
     if request.method!="POST":
-        form = AddRegularUserForm()
-        return render(request, "regularuser/register.html", { "form":form } )
+        return HttpResponse("Method Not Allowed")
     else:
         form = AddRegularUserForm(request.POST,request.FILES)
         if form.is_valid():
@@ -85,7 +95,6 @@ def RegularUserRegister(request):
             try:
                 user = CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=3)
                 user.regularuser.phone_number = phone_number
-                user.regularuser.image_url = "user/login-img.png"
                 user.save()
                 messages.success(request,"Successfully Added New User")
                 return HttpResponseRedirect(reverse("user_register"))
