@@ -30,8 +30,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     #Login
-    path('login', homeView.GetLogin, name="login"),
-    path('postlogin', homeView.PostLogin, name="postlogin"),
+    path('login', homeView.Login, name="login"),
     path('logout', homeView.LogOut, name="logout"),
 
     #Admin
@@ -39,21 +38,17 @@ urlpatterns = [
  
     #Chef
     path('chef_home', chefView.HomePage, name="chef_home"),
-    path('chef_register', homeView.GetChefRegister, name="chef_register"),
-    path('post_chef_register', homeView.PostChefRegister, name="post_chef_register"),
-    path('edit_chef', chefView.GetEditChef, name="edit_chef"),
-    path('post_edit_chef', chefView.PostEditChef, name="post_edit_chef"),
-    path('edit_chef_image', chefView.GetImageChef, name="edit_chef_image"),
-    path('post_edit_chef_image', chefView.PostImageChef, name="post_edit_chef_image"),
-    path('remove_edit_chef_image', chefView.RemoveImageChef, name="remove_edit_chef_image"),
+    path('chef_register', homeView.ChefRegister, name="chef_register"),
+    path('edit_chef', chefView.EditChef, name="edit_chef"),
+    path('chef_image', chefView.ImageChef, name="chef_image"),
+    path('remove_chef_image', chefView.RemoveImageChef, name="remove_chef_image"),
+    path('feature_chef_image', chefView.FeatureImageChef, name="feature_chef_image"),
+    path('remove_feature_chef_image/<str:chef_image_id>', chefView.RemoveFeatureImageChef, name="remove_feature_chef_image"),
 
     #User
     path('user_home', regularUserView.HomePage, name="user_home"),
-    path('user_register', homeView.GetRegularUserRegister, name="user_register"),
-    path('post_user_register', homeView.PostRegularUserRegister, name="post_user_register"),
-    path('edit_user', regularUserView.GetEditRegularUser, name="edit_user"),
-    path('post_edit_user', regularUserView.PostEditRegularUser, name="post_edit_user"),
-    path('edit_user_image', regularUserView.GetImageRegularUser, name="edit_user_image"),
-    path('post_user_chef_image', regularUserView.PostImageRegularUser, name="post_edit_user_image"),
-    path('remove_user_chef_image', chefView.RemoveImageChef, name="remove_edit_user_image")
+    path('user_register', homeView.RegularUserRegister, name="user_register"),
+    path('edit_user', regularUserView.EditRegularUser, name="edit_user"),
+    path('user_image', regularUserView.ImageRegularUser, name="user_image"),
+    path('remove_user_image', regularUserView.RemoveImageRegularUser, name="remove_user_image")
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

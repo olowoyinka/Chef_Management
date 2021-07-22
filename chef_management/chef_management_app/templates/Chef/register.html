@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-4">
             <section>
-                {% url 'post_chef_register' as action_path %}
+                {% url 'chef_register' as action_path %}
                 {% include 'chef/form_template.html' with messages=messages form=form action_path=action_path button_text="Register" %}
             </section>
         </div>

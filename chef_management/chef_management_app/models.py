@@ -1,7 +1,42 @@
+import datetime
+import os
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+
+#file path
+def filepath_chef(request, filename):
+    old_filename = filename
+    timeNow = datetime.datetime.now().strftime('%Y%m%d%H:%M:%S')
+    filename = "%s%s" % (timeNow, old_filename)
+    return os.path.join('chef/', filename)
+
+def filepath_chef_image(request, filename):
+    old_filename = filename
+    timeNow = datetime.datetime.now().strftime('%Y%m%d%H:%M:%S')
+    filename = "%s%s" % (timeNow, old_filename)
+    return os.path.join('chef_images/', filename)
+
+def filepath_user(request, filename):
+    old_filename = filename
+    timeNow = datetime.datetime.now().strftime('%Y%m%d%H:%M:%S')
+    filename = "%s%s" % (timeNow, old_filename)
+    return os.path.join('user/', filename)
+
+def filepath_recipe(request, filename):
+    old_filename = filename
+    timeNow = datetime.datetime.now().strftime('%Y%m%d%H:%M:%S')
+    filename = "%s%s" % (timeNow, old_filename)
+    return os.path.join('recipe/', filename)
+
+def filepath_recipe_image(request, filename):
+    old_filename = filename
+    timeNow = datetime.datetime.now().strftime('%Y%m%d%H:%M:%S')
+    filename = "%s%s" % (timeNow, old_filename)
+    return os.path.join('recipe_images/', filename)
+
 
 # Create your models here.
 class CustomUser(AbstractUser):
@@ -21,7 +56,7 @@ class ChefUser(models.Model):
     id = models.AutoField(primary_key=True)
     admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
     chef_name = models.CharField(max_length=255)
-    image_url = models.FileField()
+    image_url = models.ImageField(upload_to=filepath_chef,null=True,blank=True)
     join_date = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
 
@@ -29,7 +64,7 @@ class ChefUser(models.Model):
 class RegularUser(models.Model):
     id = models.AutoField(primary_key=True)
     admin=models.OneToOneField(CustomUser,on_delete=models.CASCADE)
-    image_url = models.FileField()
+    image_url = models.ImageField(upload_to=filepath_user,null=True,blank=True)
     phone_number = models.CharField(max_length=255)
     join_date = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
@@ -41,7 +76,7 @@ class Recipe(models.Model):
     decription = models.TextField()
     method = models.TextField()
     ingredient = models.TextField()
-    image_url = models.FileField()
+    image_url = models.ImageField(upload_to=filepath_recipe,null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     price = models.IntegerField()
     chefuser_id = models.ForeignKey(ChefUser, on_delete=models.CASCADE)
@@ -70,9 +105,10 @@ class ChefAddress(models.Model):
     objects = models.Manager()
 
 
+
 class ChefImages(models.Model):
     id = models.AutoField(primary_key=True)
-    url = models.FileField()
+    url = models.ImageField(upload_to=filepath_chef_image,null=False,blank=False)
     chefuser_id = models.ForeignKey(ChefUser, on_delete=models.CASCADE)
     objects = models.Manager()
 
@@ -104,7 +140,7 @@ class RecipeCommentary(models.Model):
 
 class RecipeImages(models.Model):
     id = models.AutoField(primary_key=True)
-    url = models.FileField()
+    url = models.ImageField(upload_to=filepath_recipe_image,null=False,blank=False)
     recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     objects = models.Manager()
 

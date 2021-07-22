@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-4">
             <section>
-                {% url 'post_edit_chef' as action_path %}
+                {% url 'edit_chef' as action_path %}
                 <form role="form" action="{{ action_path }}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <h4>Use a local account to Update in.</h4>

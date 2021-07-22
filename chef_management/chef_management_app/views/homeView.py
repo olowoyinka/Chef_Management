@@ -14,13 +14,9 @@ def HomePage(request):
     return render(request, "Home/welcome.html")
 
 
-def GetLogin(request):
-    return render(request,"Home/login.html")
-
-
-def PostLogin(request):
+def Login(request):
     if request.method!="POST":
-        return HttpResponse("<h2>Method Not Allowed</h2>")
+        return render(request,"Home/login.html")
     else:
         user=EmailBackEnd.authenticate(request,username=request.POST.get("email"),password=request.POST.get("password"))
         if user!=None:
@@ -41,14 +37,11 @@ def LogOut(request):
     return HttpResponseRedirect(reverse("home"))
 
 
-def GetChefRegister(request):
-    form = AddChefForm()
-    return render(request, "chef/register.html", { "form":form } )
 
-
-def PostChefRegister(request):
+def ChefRegister(request):
     if request.method!="POST":
-        return HttpResponse("Method Not Allowed")
+        form = AddChefForm()
+        return render(request, "chef/register.html", { "form":form } )
     else:
         form = AddChefForm(request.POST,request.FILES)
         if form.is_valid():
@@ -63,6 +56,7 @@ def PostChefRegister(request):
             try:
                 user = CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=2)
                 user.chefuser.chef_name = chef_name
+                user.chefuser.image_url = "chef/login-img.png"
                 user.save()
                 messages.success(request,"Successfully Added New Chef")
                 return HttpResponseRedirect(reverse("chef_register"))
@@ -74,14 +68,10 @@ def PostChefRegister(request):
             return render(request, "chef/register.html", {"form": form})
 
 
-def GetRegularUserRegister(request):
-    form = AddRegularUserForm()
-    return render(request, "regularuser/register.html", { "form":form } )
-
-
-def PostRegularUserRegister(request):
+def RegularUserRegister(request):
     if request.method!="POST":
-        return HttpResponse("Method Not Allowed")
+        form = AddRegularUserForm()
+        return render(request, "regularuser/register.html", { "form":form } )
     else:
         form = AddRegularUserForm(request.POST,request.FILES)
         if form.is_valid():
@@ -95,6 +85,7 @@ def PostRegularUserRegister(request):
             try:
                 user = CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=3)
                 user.regularuser.phone_number = phone_number
+                user.regularuser.image_url = "user/login-img.png"
                 user.save()
                 messages.success(request,"Successfully Added New User")
                 return HttpResponseRedirect(reverse("user_register"))

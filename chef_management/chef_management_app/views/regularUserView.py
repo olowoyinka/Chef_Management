@@ -4,6 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
+import os
+
 
 from chef_management_app.Form.regularuserform import EditRegularUserForm, EditRegularUserImageForm
 from chef_management_app.models import CustomUser, RegularUser
@@ -14,18 +16,15 @@ def HomePage(request):
     return render(request, "RegularUser/home.html")
 
 
-def GetEditRegularUser(request):
-    regularuser = RegularUser.objects.get(admin = request.user.id)
-    form = EditRegularUserForm()
-    form.fields['first_name'].initial = regularuser.admin.first_name
-    form.fields['last_name'].initial = regularuser.admin.last_name
-    form.fields['phone_number'].initial = regularuser.phone_number
-    return render(request,"regularuser/edit_user.html", {"form":form, "username":regularuser.admin.username, "email":regularuser.admin.email })
-
-
-def PostEditRegularUser(request):
+def EditRegularUser(request):
     if request.method!="POST":
-        return HttpResponse("<h2>Method Not Allowed</h2>")
+        regularuser = RegularUser.objects.get(admin = request.user.id)
+        form = EditRegularUserForm()
+        form.fields['first_name'].initial = regularuser.admin.first_name
+        form.fields['last_name'].initial = regularuser.admin.last_name
+        form.fields['phone_number'].initial = regularuser.phone_number
+        return render(request,"regularuser/edit_user.html", {"form":form, "username":regularuser.admin.username, "email":regularuser.admin.email })
+
     else:
         if request.user.id == None:
             return HttpResponseRedirect(reverse("home"))
@@ -58,46 +57,34 @@ def PostEditRegularUser(request):
             return render(request,"regularuser/edit_user.html", {"form":form, "username":regularuser.admin.username, "email":regularuser.admin.email})
 
 
-def GetImageRegularUser(request):
-    regularuser = RegularUser.objects.get(admin = request.user.id)
-    form = EditRegularUserImageForm()
-    return render(request,"regularuser/edit_user_image.html", {"form":form, "email":regularuser.admin.email, "image_url":regularuser.image_url })
-
-
-def PostImageRegularUser(request):
+def ImageRegularUser(request):
     if request.method!="POST":
-        return HttpResponse("<h2>Method Not Allowed</h2>")
+        regularuser = RegularUser.objects.get(admin = request.user.id)
+        return render(request,"regularuser/user_image.html", { "email":regularuser.admin.email, "image_url":regularuser.image_url })
     else:
         if request.user.id == None:
             return HttpResponseRedirect(reverse("home"))
 
-        form = EditRegularUserImageForm(request.POST, request.FILES)
+        regularuser = RegularUser.objects.get(admin = request.user.id)
 
-        if form.is_valid():
-            if request.FILES.get('image_url',False):
-                image_url = request.FILES['image_url']
-                fs = FileSystemStorage()
-                filename = fs.save(image_url.name, image_url)
-                image_url_pic = fs.url(filename)
-            else:
-                image_url_pic =  None
-
-            try:
-                regularuseruser = RegularUser.objects.get(admin = request.user.id)
-
-                if image_url_pic != None:
-                    regularuseruser.image_url = image_url_pic
-                regularuseruser.save()
-
-                messages.success(request,"Successfully Edited User")
-                return HttpResponseRedirect(reverse("edit_user_image"))
-            except:
-                messages.error(request,"Failed to Edit User")
-                return HttpResponseRedirect(reverse("edit_user_image"))
+        if len(request.FILES) != 0:
+            if len(regularuser.image_url) > 0:
+                if regularuser.image_url != "media/login-img.png":
+                    os.remove(regularuser.image_url.path)
+                    regularuser.image_url = request.FILES['image_url']
+                else:
+                    regularuser.image_url = request.FILES['image_url']
         else:
-            form = EditRegularUserForm(request.POST)
-            regularuser = RegularUser.objects.get(admin = request.user.id)
-            return render(request,"regularuser/edit_user_image.html", {"form":form, "email":regularuser.admin.email, "image_url":regularuser.image_url})
+            regularuser.image_url =  None
+
+        try:
+            regularuser.save()
+            messages.success(request,"Successfully Edited User")
+            return HttpResponseRedirect(reverse("user_image"))
+        except:
+            messages.error(request,"Failed to Edit User")
+            return HttpResponseRedirect(reverse("user_image"))
+ 
 
 
 def RemoveImageRegularUser(request):
@@ -105,15 +92,14 @@ def RemoveImageRegularUser(request):
             return HttpResponseRedirect(reverse("home"))            
 
         try:
-            fs = FileSystemStorage()
             regularuser = RegularUser.objects.get(admin = request.user.id)
-            fs.delete(regularuser.image_url)
-            
-            regularuser.image_url = ""
+            if regularuser.image_url != "media/login-img.png":
+                os.remove(regularuser.image_url.path)
+            regularuser.image_url = "media/login-img.png"
             regularuser.save()
 
             messages.success(request,"Successfully Remove User Image")
-            return HttpResponseRedirect(reverse("edit_user_image"))
+            return HttpResponseRedirect(reverse("user_image"))
         except:
             messages.error(request,"Failed to Remove User Image")
-            return HttpResponseRedirect(reverse("edit_user_image"))
+            return HttpResponseRedirect(reverse("user_image"))
