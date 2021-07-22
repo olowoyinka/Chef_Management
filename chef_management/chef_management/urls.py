@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from chef_management_app.views import homeView
 from chef_management_app.views import adminView
 from chef_management_app.views import chefView
+from chef_management_app.views import recipeView
 from chef_management_app.views import regularUserView
 from chef_management import settings
 
@@ -38,7 +39,6 @@ urlpatterns = [
  
     #Chef
     path('chef', chefView.HomePage, name="chef_home"),
-
     path('chef_register', homeView.ChefRegister, name="chef_register"),
     path('chef_edit', chefView.EditChef, name="edit_chef"),
     path('chef_image', chefView.ImageChef, name="chef_image"),
@@ -60,5 +60,9 @@ urlpatterns = [
     path('user_register', homeView.RegularUserRegister, name="user_register"),
     path('user_edit', regularUserView.EditRegularUser, name="edit_user"),
     path('user_image', regularUserView.ImageRegularUser, name="user_image"),
-    path('user_image', regularUserView.RemoveImageRegularUser, name="remove_user_image")
+    path('user_image', regularUserView.RemoveImageRegularUser, name="remove_user_image"),
+
+
+    #Recipe
+    path('create_recipe', recipeView.CreateRecipe, name="create_recipe")
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

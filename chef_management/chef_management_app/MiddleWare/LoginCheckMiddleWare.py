@@ -20,6 +20,8 @@ class LoginCheckMiddleWare(MiddlewareMixin):
             elif user.user_type == "2":
                 if modulename == "chef_management_app.views.chefView":
                     pass
+                elif modulename == "chef_management_app.views.recipeView":
+                    pass
                 elif modulename == "chef_management_app.views.homeView" or modulename == "django.views.static":
                     pass
                 else:
