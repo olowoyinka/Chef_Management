@@ -100,22 +100,20 @@ class ChefAddress(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.TextField()
     chefuser_id = models.ForeignKey(ChefUser, on_delete=models.CASCADE)
-    continent_id = models.ForeignKey(Continent, on_delete=models.CASCADE)
     country_id = models.ForeignKey(Country, on_delete=models.CASCADE)
     objects = models.Manager()
 
 
-
 class ChefImages(models.Model):
     id = models.AutoField(primary_key=True)
-    url = models.ImageField(upload_to=filepath_chef_image,null=False,blank=False)
+    url = models.ImageField(upload_to=filepath_chef_image,null=True,blank=False)
     chefuser_id = models.ForeignKey(ChefUser, on_delete=models.CASCADE)
     objects = models.Manager()
 
 
 class ChefPhoneNumer(models.Model):
     id = models.AutoField(primary_key=True)
-    number = models.IntegerField()
+    number = models.CharField(max_length=255)
     chefuser_id = models.ForeignKey(ChefUser, on_delete=models.CASCADE)
     objects = models.Manager()
 
@@ -124,7 +122,6 @@ class RecipeAddress(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.TextField()
     recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    continent_id = models.ForeignKey(Continent, on_delete=models.CASCADE)
     country_id = models.ForeignKey(Country, on_delete=models.CASCADE)
     objects = models.Manager()
 
@@ -140,7 +137,7 @@ class RecipeCommentary(models.Model):
 
 class RecipeImages(models.Model):
     id = models.AutoField(primary_key=True)
-    url = models.ImageField(upload_to=filepath_recipe_image,null=False,blank=False)
+    url = models.ImageField(upload_to=filepath_recipe_image,null=True,blank=False)
     recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     objects = models.Manager()
 

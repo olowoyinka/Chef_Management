@@ -69,7 +69,7 @@ def ImageRegularUser(request):
 
         if len(request.FILES) != 0:
             if len(regularuser.image_url) > 0:
-                if regularuser.image_url != "media/login-img.png":
+                if regularuser.image_url != "user/login-img.png":
                     os.remove(regularuser.image_url.path)
                     regularuser.image_url = request.FILES['image_url']
                 else:
@@ -93,9 +93,9 @@ def RemoveImageRegularUser(request):
 
         try:
             regularuser = RegularUser.objects.get(admin = request.user.id)
-            if regularuser.image_url != "media/login-img.png":
+            if regularuser.image_url != "user/login-img.png":
                 os.remove(regularuser.image_url.path)
-            regularuser.image_url = "media/login-img.png"
+            regularuser.image_url = "user/login-img.png"
             regularuser.save()
 
             messages.success(request,"Successfully Remove User Image")

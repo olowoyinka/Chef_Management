@@ -1,5 +1,5 @@
 from django import forms
-from django.core import validators
+from chef_management_app.models import Country
 
 
 
@@ -18,5 +18,25 @@ class EditChefForm(forms.Form):
     chef_name=forms.CharField(label="Chef Name",max_length=50,widget=forms.TextInput(attrs={"class":"form-control"}))
 
 
-class EditChefImageForm(forms.Form):
-    image_url=forms.FileField(label="Profile Picture",max_length=50,widget=forms.FileInput(attrs={"class":"form-control"}))
+class ChefPhoneForm(forms.Form):
+    phone_number=forms.IntegerField(label="Phone Number",widget=forms.NumberInput(attrs={"class":"form-control"}))
+
+
+class ChefAddressForm(forms.Form):
+    name = forms.CharField(label="Address Location",max_length=100,widget=forms.TextInput(attrs={"class":"form-control"}))
+    countries = Country.objects.all()
+    country_list = []
+    for country in countries:
+        small_couuntry = (country.id, country.name)
+        country_list.append(small_couuntry)
+    country = forms.ChoiceField(label="Country",choices=country_list,widget=forms.Select(attrs={"class":"form-control"}))
+
+
+class EditChefAddressForm(forms.Form):
+    name=forms.CharField(label="Address Location",max_length=100,widget=forms.TextInput(attrs={"class":"form-control"}))
+    countries=Country.objects.all()
+    country_list = []
+    for country in countries:
+        small_couuntry = (country.id, country.name)
+        country_list.append(small_couuntry)
+    country = forms.ChoiceField(label="Country",choices=country_list,widget=forms.Select(attrs={"class":"form-control"}))

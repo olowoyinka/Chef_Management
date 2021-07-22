@@ -1,0 +1,42 @@
+{% extends 'Home/layout.html' %}
+
+{% block page_title %}
+    Welcome
+{% endblock page_title %}
+
+{% block main_content %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+            {% endif %}
+            {% if message.tags == 'success' %}
+                <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}     
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>Id</th>
+                <th>Address</th>
+                <th>Country</th>
+                <th>Continent</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>              
+                    <td>{{ address.id }}</td> 
+                    <td>{{ address.name }}</td>
+                    <td>{{ address.country_id.name }}</td>
+                    <td>{{ address.country_id.continent_id.name }}</td>
+                    {% if address != None %}
+                    <td><a href="{% url 'edit_address' address.id %}" class="btn btn-success">Edit</a></td>
+                    <td><a href="{% url 'delete_address' address.id %}" class="btn btn-danger">Remove</a></td>
+                    {% endif %}              
+                </tr>
+        </tbody>
+    </table>
+{% endblock main_content %}

@@ -1,0 +1,38 @@
+{% extends 'Home/layout.html' %}
+
+{% block page_title %}
+    Welcome
+{% endblock page_title %}
+
+{% block main_content %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+            {% endif %}
+            {% if message.tags == 'success' %}
+                <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}     
+    <table class="table table-light">
+        <thead class="thead-light">
+            <tr>
+                <th>Id</th>
+                <th>Number</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for phone in phones %}
+                <tr>              
+                    <td>{{ phone.id }}</td> 
+                    <td>{{ phone.number }}</td> 
+                    <td><a href="{% url 'chef_phone_number' phone.id %}" class="btn btn-success">Edit</a></td>
+                    <td><a href="{% url 'remove_chef_phone_number' phone.id %}" class="btn btn-danger">Remove</a></td>              
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock main_content %}
