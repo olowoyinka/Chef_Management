@@ -27,6 +27,7 @@ from chef_management import settings
 
 
 urlpatterns = [
+    
     path('', homeView.HomePage, name="home"),
     path('admin/', admin.site.urls),
 
@@ -58,5 +59,8 @@ urlpatterns = [
     path('create_recipe', recipeView.CreateRecipe, name="create_recipe"),
     path('get_recipe', recipeView.GetRecipe, name="get_recipe"),
     path('edit_recipe/<str:recipe_id>', recipeView.EditRecipe, name="edit_recipe"),
-    path('delete_recipe/<str:recipe_id>', recipeView.DeleteRecipe, name="delete_recipe")
+    path('delete_recipe/<str:recipe_id>', recipeView.DeleteRecipe, name="delete_recipe"),
+    path('feature_recipe_image/<str:recipe_id>', recipeView.FeatureRecipeImage, name="feature_recipe_image"),
+    path('remove_feature_recipe_image/<str:recipe_image_id>', recipeView.DeleteFeatureRecipeImage, name="remove_feature_recipe_image"),
+    
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

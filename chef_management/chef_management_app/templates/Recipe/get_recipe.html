@@ -25,6 +25,9 @@
                 <th>Ingredient</th>
                 <th>Price</th>
                 <th>Main Image</th>
+                <th>Addres Name</th>
+                <th>Country</th>
+                <th>Continent</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -37,8 +40,11 @@
                     <td>{{ recipe.decription | safe }}</td> 
                     <td>{{ recipe.method | safe }}</td>  
                     <td>{{ recipe.ingredient | safe }}</td> 
-                    <td>{{ recipe.price }}</td> 
+                    <td>{{ recipe.price }}</td>
                     <td><img src="media/{{ recipe.image_url }}" style="width:100px"/></td>
+                    <td>{{ recipe.address_name }}</td>
+                    <td>{{ recipe.country_id.name }}</td>
+                    <td>{{ recipe.continent_id.name }}</td> 
                     <td><a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-success">Edit</a></td>
                     <td><a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger">Remove</a></td>               
                 </tr>

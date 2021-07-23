@@ -4,9 +4,8 @@ from django.shortcuts import render
 from django.urls import reverse
 import os
 
-
 from chef_management_app.Form.recipeform import AddRecipeForm, EditRecipeForm
-from chef_management_app.models import ChefUser, Country, Recipe
+from chef_management_app.models import ChefUser, Country, Recipe, RecipeImages
 
 
 
@@ -28,6 +27,8 @@ def CreateRecipe(request):
             method=form.cleaned_data["method"]
             ingredient=form.cleaned_data["ingredient"]
             price=form.cleaned_data["price"]
+            address_name=form.cleaned_data["address_name"]
+            country_id = form.cleaned_data["country"]
 
             if len(request.FILES) != 0:
                 image_url = request.FILES['image_url']
@@ -36,12 +37,16 @@ def CreateRecipe(request):
 
             try:
                 chef = ChefUser.objects.get(admin = request.user.id)
+                country_obj = Country.objects.get(id=country_id)
                 photo = Recipe.objects.create(
                     name=name,
                     decription=description,
                     method=method,
                     ingredient=ingredient,
                     price=price,
+                    address_name = address_name,
+                    country_id = country_obj,
+                    continent_id = country_obj.continent_id,
                     chefuser_id = chef,
                     image_url = image_url
                 )
@@ -51,7 +56,7 @@ def CreateRecipe(request):
                 messages.error(request,"Failed to Added New Recipe")
                 return HttpResponseRedirect(reverse("create_recipe"))
         else:
-            form = AddRecipeForm()(request.POST)
+            form = AddRecipeForm()(request.POST, request.FILES)
             return render(request, "recipe/create_recipe.html", {"form": form})
 
 
@@ -65,6 +70,8 @@ def EditRecipe(request, recipe_id):
         form.fields['method'].initial = recipe.method
         form.fields['ingredient'].initial = recipe.ingredient
         form.fields['price'].initial = recipe.price
+        form.fields['address_name'].initial = recipe.name
+        form.fields['country'].initial = recipe.country_id.id
         return render(request, "recipe/edit_recipe.html", { "form":form } )
     else:
         form = EditRecipeForm(request.POST,request.FILES)
@@ -74,6 +81,8 @@ def EditRecipe(request, recipe_id):
             method=form.cleaned_data["method"]
             ingredient=form.cleaned_data["ingredient"]
             price=form.cleaned_data["price"]
+            address_name = form.cleaned_data["address_name"]
+            country_id = form.cleaned_data["country"]
 
             try:
                 chef = ChefUser.objects.get(admin = request.user.id)
@@ -83,6 +92,12 @@ def EditRecipe(request, recipe_id):
                 recipe.method = method
                 recipe.ingredient = ingredient
                 recipe.price = price
+
+                recipe.address_name = address_name
+
+                country_obj = Country.objects.get(id=country_id)
+                recipe.country_id = country_obj
+                recipe.continent_id = country_obj.continent_id
 
                 if len(request.FILES) != 0:
                     os.remove(recipe.image_url.path)                
@@ -109,3 +124,41 @@ def DeleteRecipe(request, recipe_id):
     recipe.delete()
     messages.success(request,"Remove Recipe")
     return HttpResponseRedirect(reverse("get_recipe"))
+
+
+def FeatureRecipeImage(request, recipe_id):
+    if request.method!="POST":
+        chef = ChefUser.objects.get(admin = request.user.id)
+        recipe = Recipe.objects.get(id = recipe_id , chefuser_id = chef)
+        recipeImages = RecipeImages.objects.filter(recipe_id = recipe)
+        return render(request,"recipe/feature_recipe_image.html", { "recipes": recipeImages })
+    else:
+        if request.user.id == None:
+            return HttpResponseRedirect(reverse("home"))
+
+        chef = ChefUser.objects.get(admin = request.user.id)
+        recipe = Recipe.objects.get(id = recipe_id , chefuser_id = chef)
+
+        images = request.FILES.getlist('images')
+
+        for image in images:
+            photo = RecipeImages.objects.create(
+                url = image,
+                recipe_id = recipe
+            )
+
+        try:
+            messages.success(request,"Successfully Upload Multiple")
+            return HttpResponseRedirect(reverse("feature_recipe_image", kwargs = { "recipe_id":recipe_id }))
+        except:
+            messages.error(request,"Failed to Upload Multiple")
+            return HttpResponseRedirect(reverse("feature_recipe_image", kwargs = { "recipe_id":recipe_id }))
+
+
+def DeleteFeatureRecipeImage(request, recipe_image_id):
+    recipeImages = RecipeImages.objects.get(id = recipe_image_id)
+    if len(recipeImages.url) > 0:
+        os.remove(recipeImages.url.path)
+    recipeImages.delete()
+    messages.success(request,"Remove Image")
+    return HttpResponseRedirect(reverse("feature_recipe_image", kwargs = { "recipe_id": recipeImages.recipe_id.id }))
