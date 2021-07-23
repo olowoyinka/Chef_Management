@@ -34,9 +34,9 @@
                 <tr>              
                     <td>{{ recipe.id }}</td> 
                     <td>{{ recipe.name }}</td>
-                    <td>{{ recipe.decription }}</td> 
-                    <td>{{ recipe.method }}</td>  
-                    <td>{{ recipe.ingredient }}</td> 
+                    <td>{{ recipe.decription | safe }}</td> 
+                    <td>{{ recipe.method | safe }}</td>  
+                    <td>{{ recipe.ingredient | safe }}</td> 
                     <td>{{ recipe.price }}</td> 
                     <td><img src="media/{{ recipe.image_url }}" style="width:100px"/></td>
                     <td><a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-success">Edit</a></td>

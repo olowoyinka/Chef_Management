@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+  
+from ckeditor.fields import RichTextField
 
 
 #file path
@@ -73,9 +75,9 @@ class RegularUser(models.Model):
 class Recipe(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
-    decription = models.TextField()
-    method = models.TextField()
-    ingredient = models.TextField()
+    decription = RichTextField(blank=True,null=True)
+    method = RichTextField(blank=True,null=True)
+    ingredient = RichTextField(blank=True,null=True)
     image_url = models.ImageField(upload_to=filepath_recipe,null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     price = models.IntegerField()

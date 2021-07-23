@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'chef_management_app'
+    'chef_management_app',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,4 @@ AUTHENTICATION_BACKENDS=['chef_management_app.EmailBackEnd.EmailBackEnd']
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
