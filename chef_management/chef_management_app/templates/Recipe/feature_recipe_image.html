@@ -30,7 +30,7 @@
                     {% for recipe in recipes %}
                         <div class="form-group">
                             <div>
-                                <img src="media/{{ recipe.url }}" style="width:100px"/>
+                                <img src="../../../media/{{ recipe.url }}" style="width:100px"/>
                             </div>
                             <a href="{% url 'remove_feature_recipe_image' recipe.id %}" class="btn btn-success">Remove</a>
                         </div>
