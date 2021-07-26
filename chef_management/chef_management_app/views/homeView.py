@@ -19,12 +19,12 @@ def Login(request):
     if request.method!="POST":
         return render(request,"Home/login.html")
     else:
-        user=EmailBackEnd.authenticate(request,username=request.POST.get("email"),password=request.POST.get("password"))
-        if user!=None:
+        user = EmailBackEnd.authenticate(request, username=request.POST.get("email"), password=request.POST.get("password"))
+        if user != None:
             login(request,user)
-            if user.user_type=="1":
+            if user.user_type == "1":
                 return HttpResponseRedirect(reverse('admin_home'))
-            elif user.user_type=="2":
+            elif user.user_type == "2":
                 return HttpResponseRedirect(reverse("chef_home"))
             else:
                 return HttpResponseRedirect(reverse("user_home"))
@@ -56,8 +56,17 @@ def ChefRegister(request):
             address_name=form.cleaned_data["address_name"]
             country_id = form.cleaned_data["country"]
 
-
             try:
+                user_email_exist = CustomUser.objects.filter(email = email).exists()
+                if user_email_exist:
+                    messages.error(request,"Email Address already exist")
+                    return HttpResponseRedirect(reverse("chef_register"))
+                
+                user_username_exist = CustomUser.objects.filter(username = username).exists()
+                if user_username_exist:
+                    messages.error(request,"Username already exist")
+                    return HttpResponseRedirect(reverse("chef_register"))
+
                 user = CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=2)
                 country_obj = Country.objects.get(id=country_id)
                 user.chefuser.chef_name = chef_name
@@ -67,6 +76,7 @@ def ChefRegister(request):
                 user.chefuser.continent_id = country_obj.continent_id
                 user.chefuser.image_url = "chef/login-img.png"
                 user.save()
+
                 messages.success(request,"Successfully Added New Chef")
                 return HttpResponseRedirect(reverse("chef_register"))
             except:
@@ -92,6 +102,16 @@ def RegularUserRegister(request):
             phone_number=form.cleaned_data["phone_number"]
 
             try:
+                user_email_exist = CustomUser.objects.filter(email = email).exists()
+                if user_email_exist:
+                    messages.error(request,"Email Address already exist")
+                    return HttpResponseRedirect(reverse("user_register"))
+                
+                user_username_exist = CustomUser.objects.filter(username = username).exists()
+                if user_username_exist:
+                    messages.error(request,"Username already exist")
+                    return HttpResponseRedirect(reverse("user_register"))
+
                 user = CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=3)
                 user.regularuser.phone_number = phone_number
                 user.regularuser.image_url = "user/login-img.png"
