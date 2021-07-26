@@ -1,14 +1,46 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
+from django.contrib.auth.models import User
+from django.core import exceptions
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.encoding import force_bytes, force_str, force_text, DjangoUnicodeDecodeError
+from django.core.mail import EmailMessage
+from django.conf import settings
+
 
 from chef_management_app.EmailBackEnd import EmailBackEnd
 from chef_management_app.Form.chefform import AddChefForm
 from chef_management_app.Form.regularuserform import AddRegularUserForm
-from chef_management_app.models import CustomUser, Country, Continent
+from chef_management_app.models import CustomUser, Country
+from chef_management_app.utils import generate_token
+
+
+
+
+def send_action_email(user, request):
+    current_site = get_current_site(request)
+    email_subject = 'Activate your chef management'
+    email_body = render_to_string('home/activate.html', {
+        'user' : user,
+        'domain': current_site,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': generate_token.make_token(user)
+    })
+
+    email = EmailMessage(
+        subject = email_subject,
+        body = email_body,
+        from_email = settings.EMAIL_FROM_USER,
+        to = [user.email]
+    )
+
+    email.send()
 
 # Create your views here.
 def HomePage(request):
@@ -20,8 +52,12 @@ def Login(request):
         return render(request,"Home/login.html")
     else:
         user = EmailBackEnd.authenticate(request, username=request.POST.get("email"), password=request.POST.get("password"))
+        
         if user != None:
             login(request,user)
+            if not user.is_active:
+                messages.error(request,"Email is not verified, please check your email inbox")
+                return HttpResponseRedirect(reverse("login"))
             if user.user_type == "1":
                 return HttpResponseRedirect(reverse('admin_home'))
             elif user.user_type == "2":
@@ -56,12 +92,12 @@ def ChefRegister(request):
             address_name=form.cleaned_data["address_name"]
             country_id = form.cleaned_data["country"]
 
-            try:
+            try:          
                 user_email_exist = CustomUser.objects.filter(email = email).exists()
                 if user_email_exist:
                     messages.error(request,"Email Address already exist")
                     return HttpResponseRedirect(reverse("chef_register"))
-                
+
                 user_username_exist = CustomUser.objects.filter(username = username).exists()
                 if user_username_exist:
                     messages.error(request,"Username already exist")
@@ -75,13 +111,17 @@ def ChefRegister(request):
                 user.chefuser.country_id = country_obj
                 user.chefuser.continent_id = country_obj.continent_id
                 user.chefuser.image_url = "chef/login-img.png"
+                user.is_active = False
                 user.save()
 
-                messages.success(request,"Successfully Added New Chef")
+                send_action_email(user, request)
+
+                messages.success(request,"Check Your Email to verified your account")
                 return HttpResponseRedirect(reverse("chef_register"))
             except:
-                messages.error(request,"Failed to Register Staff")
-                return HttpResponseRedirect(reverse("chef_register"))
+                messages.error(request,"Failed to Register New User")
+                return HttpResponseRedirect(reverse("user_register"))
+          
         else:
             form = AddChefForm(request.POST)
             return render(request, "chef/register.html", {"form": form})
@@ -115,7 +155,11 @@ def RegularUserRegister(request):
                 user = CustomUser.objects.create_user(username=username,password=password,email=email,last_name=last_name,first_name=first_name,user_type=3)
                 user.regularuser.phone_number = phone_number
                 user.regularuser.image_url = "user/login-img.png"
+                user.is_active = False
                 user.save()
+                
+                send_action_email(user, request)
+
                 messages.success(request,"Successfully Added New User")
                 return HttpResponseRedirect(reverse("user_register"))
             except:
@@ -125,6 +169,24 @@ def RegularUserRegister(request):
             form = AddRegularUserForm(request.POST)
             return render(request, "regularuser/register.html", {"form": form})
 
+
+def activate_user(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+
+        user = CustomUser.objects.get(pk = uid)
+    
+    except Exception as e:
+        user = None
+
+    if user and generate_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+
+        messages.success(request, "Email verified, you can now login")
+        return HttpResponseRedirect(reverse("login"))
+    
+    return render(request , 'home/activate_failed.html', {"user": user})
 
 
 @csrf_exempt

@@ -145,3 +145,12 @@ AUTHENTICATION_BACKENDS=['chef_management_app.EmailBackEnd.EmailBackEnd']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# EMAIL CONFIG
+
+EMAIL_FROM_USER = 'olowofelayinka@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'olowofelayinka@gmail.com'
+EMAIL_HOST_PASSWORD = 'Yinkaseuntosin24@'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587

@@ -34,6 +34,7 @@ urlpatterns = [
     #Login
     path('login', homeView.Login, name="login"),
     path('logout', homeView.LogOut, name="logout"),
+    path('activate-user/<uidb64>/<token>', homeView.activate_user, name="activate"),
 
     #Admin
     path('admin', adminView.HomePage, name="admin_home"),
