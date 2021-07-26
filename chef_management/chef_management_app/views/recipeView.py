@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 import os
+from django.core.paginator import Paginator
 
 from chef_management_app.Form.recipeform import AddRecipeForm, EditRecipeForm
 from chef_management_app.models import ChefUser, Country, Recipe, RecipeImages
@@ -11,8 +12,11 @@ from chef_management_app.models import ChefUser, Country, Recipe, RecipeImages
 
 def GetRecipe(request):
     chef = ChefUser.objects.get(admin = request.user.id)
-    recipes = Recipe.objects.filter(chefuser_id = chef)
-    return render(request,"recipe/get_recipe.html",  { "recipes":recipes })
+    p = Paginator(Recipe.objects.filter(chefuser_id = chef).order_by('-id'), 2)
+    page = request.GET.get('page')
+    recipes = p.get_page(page)
+    nums = "a" * recipes.paginator.num_pages
+    return render(request,"recipe/get_recipe.html",  { "recipes":recipes, 'nums':nums })
 
 
 def CreateRecipe(request):

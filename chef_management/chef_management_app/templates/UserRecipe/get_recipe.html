@@ -45,8 +45,7 @@
                     <td>{{ recipe.address_name }}</td>
                     <td>{{ recipe.country_id.name }}</td>
                     <td>{{ recipe.continent_id.name }}</td> 
-                    <td><a href="{% url 'edit_recipe' recipe.id %}" class="btn btn-success">Edit</a></td>
-                    <td><a href="{% url 'delete_recipe' recipe.id %}" class="btn btn-danger">Remove</a></td>               
+                    <td><a href="{% url 'user_recipe_id' recipe.id %}" class="btn btn-success">Explore More</a></td>            
                 </tr>
             {% endfor %}
         </tbody>

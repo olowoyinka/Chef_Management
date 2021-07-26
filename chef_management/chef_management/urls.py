@@ -23,6 +23,7 @@ from chef_management_app.views import adminView
 from chef_management_app.views import chefView
 from chef_management_app.views import recipeView
 from chef_management_app.views import regularUserView
+from chef_management_app.views import userRecipeView
 from chef_management import settings
 
 
@@ -65,5 +66,8 @@ urlpatterns = [
     path('chef/recipe/delete/<str:recipe_id>', recipeView.DeleteRecipe, name="delete_recipe"),
     path('chef/recipe/feature_image/<str:recipe_id>', recipeView.FeatureRecipeImage, name="feature_recipe_image"),
     path('chef/recipe/feature_image/<str:recipe_image_id>/remove', recipeView.DeleteFeatureRecipeImage, name="remove_feature_recipe_image"),
-    
+
+    #User_Recipe
+    path('recipe', userRecipeView.GetRecipe, name="user_recipe"),
+    path('recipe/<str:recipe_id>', userRecipeView.GetRecipeById, name="user_recipe_id"),
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

@@ -1,0 +1,58 @@
+{% extends 'Home/layout.html' %}
+
+{% block main_content %}
+
+<main role="main" class="pb-3">
+    <div class="row">
+        <div class="col-md-10">
+            <section>
+                <h4>{{ recipe.name }}</h4>
+                <hr />
+                <div class="form-group">
+                    <img src="../media/{{ recipe.image_url }}" style="width:500px"/>
+                </div>
+                <hr />
+                <div class="form-group">
+                <label><strong>More Images</strong></label>
+                {% for recipeImage in recipeImages %}
+                     <div>
+                        <img src="../../../media/{{ recipeImage.url }}" style="width:100px"/>
+                    </div>
+                {% endfor %}
+                </div>
+                <hr />
+                <div class="form-group">
+                    <label><strong>Chef Owner</strong></label>
+                    {{ recipe.chefuser_id.chef_name }} <img src="../media/{{ recipe.chefuser_id.image_url }}" style="width:100px"/>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <label><strong>Posted Date</strong></label>
+                    {{ recipe.created_at }}
+                </div>
+                <hr />
+                <div class="form-group">
+                    <label><strong>Address Name</strong></label>
+                    {{ recipe.address_name }} {{ recipe.country_id.name }}, {{ recipe.continent_id.name }} 
+                </div>
+                <hr />
+                <div class="form-group">
+                    <label><strong>Description</strong></label>
+                    {{ recipe.decription | safe }}
+                </div>
+                <hr />
+                <div class="form-group">
+                    <label><strong>Methods</strong></label>
+                    {{ recipe.method | safe }}
+                </div>
+                <hr />
+                <div class="form-group">
+                    <label><strong>Ingredients</strong></label>
+                    {{ recipe.ingredient | safe }}
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+{% endblock main_content %}
