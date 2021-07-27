@@ -55,4 +55,73 @@
     </div>
 </main>
 
+<div id="showmessage">
+    <h2></h2>
+    <div class="hh"></div>
+    <div class="showimage"></div>
+    <div id="x" style="width: 100px;"></div>
+</div>
+
+{% for comment in commentary %}
+    <div> message: {{ comment.message }}</div>
+    <div> Date: {{ comment.created_at }}</div>
+    <div> Username: {{ comment.regularuser_id.admin.username }}</div>
+    <div> Image: <img src="../media/{{ comment.regularuser_id.image_url }}" style="width:100px"/></div>
+{% endfor %}
+
+
+<form id="post-form">
+    {% csrf_token %}
+    <h4>Enter Your Comment</h4>
+    <hr />
+
+    <div class="form-group">
+        <label for="Input_Message">Message</label>
+        <textarea class="form-control" type="textarea" id="message" name="message" rows="4" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="Input_Message">Recipe Id</label>
+        <input class="form-control" type="number" id="recipe_id" value={{recipe.id}} name="recipe_id" hidden  required/>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Enter Your Comment</button>
+    </div>
+</form>
+
 {% endblock main_content %}
+
+
+{% block custom_js %}
+<script>
+    $(document).on('submit', '#post-form', function(e){
+        e.preventDefault();
+
+        var data_ids = '{{ recipe.id | escapejs }}';
+
+        $.ajax({
+
+            type:'POST',
+            url: '/recipe/' + data_ids ,
+            data: {
+                message : $('#message').val(),
+                recipe_id : $('#recipe_id').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function(data){
+                $('#showmessage .hh').html(data.message)
+                $('#showmessage h2').html(data.created)
+
+                var img = document.createElement("img");
+
+                img.src = "../media/" + '{{ user | escapejs }}';
+
+                var src = document.getElementById("x");
+
+                src.appendChild(img);
+            }
+        })
+    })
+</script>
+{% endblock custom_js %}

@@ -116,6 +116,7 @@ class RecipeCommentary(models.Model):
     id = models.AutoField(primary_key=True)
     message = models.TextField()
     show_comment = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     regularuser_id = models.ForeignKey(RegularUser, on_delete=models.CASCADE)
     objects = models.Manager()
