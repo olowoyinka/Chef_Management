@@ -2,11 +2,36 @@ from django.contrib import admin, messages
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
-import os
 from django.core.paginator import Paginator
 
 from chef_management_app.models import RecipeCommentary, Recipe, RecipeImages, RegularUser, RecipeRating
 
+
+
+def CalculateRating(ratings):
+    rating_initial = 0
+    sum_divid = 1
+    for rating in ratings:
+        if rating.rating == 5:
+            rating_initial = (5 * 5) + rating_initial
+            sum_divid = sum_divid + 5
+        elif rating.rating == 4:
+            rating_initial = (4 * 4) + rating_initial
+            sum_divid = sum_divid + 4
+        elif rating.rating == 3:
+            rating_initial = (3 * 3) + rating_initial
+            sum_divid = sum_divid + 3
+        elif rating.rating == 2:
+            rating_initial = (2 * 2) + rating_initial
+            sum_divid = sum_divid + 2
+        elif rating.rating == 1:
+            rating_initial = (1 * 1) + rating_initial
+            sum_divid = sum_divid + 1
+        else:
+            rating_initial = (0 * 0) + rating_initial
+            sum_divid = sum_divid + 0
+    total_num = (rating_initial) / (sum_divid)
+    return int(total_num)
 
 
 def GetRecipe(request):
@@ -14,7 +39,17 @@ def GetRecipe(request):
     page = request.GET.get('page')
     recipes = p.get_page(page)
     nums = "a" * recipes.paginator.num_pages
-    return render(request,"userrecipe/get_recipe.html",  { "recipes":recipes, 'nums':nums })
+    recipes_ratings = []
+
+    for recipe_obj in recipes:
+        recipe_rating_obj = RecipeRating.objects.filter(recipe_id = recipe_obj.id)
+        total_rating = CalculateRating(recipe_rating_obj) + 1
+        response = {
+            "recipe" : recipe_obj,
+            "rating" : range(total_rating),
+        }
+        recipes_ratings.append(response)
+    return render(request,"userrecipe/get_recipe.html",  { "recipes":recipes_ratings, 'nums':nums })
 
 
 def GetRecipeById(request, recipe_id):
@@ -43,8 +78,12 @@ def GetRecipeById(request, recipe_id):
         user_obj = RegularUser.objects.get(admin = request.user.id)
         recipeImages = RecipeImages.objects.filter(recipe_id = recipe_id)
         recipeCommentary = RecipeCommentary.objects.filter(recipe_id = recipe_id)
-        rating = RecipeRating.objects.get(recipe_id = recipe, regularuser_id = user_obj).rating
-        return render(request, "userrecipe/get_recipe_id.html", { "recipe" : recipe, "recipeImages" : recipeImages, "user" : user_obj.image_url, "commentary" : recipeCommentary, "rating" : rating } )
+        rating = RecipeRating.objects.filter(recipe_id = recipe, regularuser_id = user_obj).exists()
+        if(rating):
+            rating_exist = RecipeRating.objects.get(recipe_id = recipe, regularuser_id = user_obj).rating
+        else:
+            rating_exist = 0
+        return render(request, "userrecipe/get_recipe_id.html", { "recipe" : recipe, "recipeImages" : recipeImages, "user" : user_obj.image_url, "commentary" : recipeCommentary, "rating" : rating_exist } )
 
 
 def GeteRecipeById(request, recipe_id):
