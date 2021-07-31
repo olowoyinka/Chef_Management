@@ -1,5 +1,6 @@
 import datetime
 import os
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
@@ -131,7 +132,12 @@ class RecipeImages(models.Model):
 
 class RecipeRating(models.Model):
     id = models.AutoField(primary_key=True)
-    rating = models.IntegerField()
+    rating = models.IntegerField(default=0, 
+        validators = [
+            MaxValueValidator(5),
+            MinValueValidator(0),
+        ]
+    )
     recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     regularuser_id = models.ForeignKey(RegularUser, on_delete=models.CASCADE)
     objects = models.Manager()

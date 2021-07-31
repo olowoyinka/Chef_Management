@@ -69,5 +69,6 @@ urlpatterns = [
 
     #User_Recipe
     path('recipe', userRecipeView.GetRecipe, name="user_recipe"),
-    path('recipe/<str:recipe_id>', userRecipeView.GetRecipeById, name="user_recipe_id")
+    path('recipe/<str:recipe_id>', userRecipeView.GetRecipeById, name="user_recipe_id"),
+    path('recipe_rating/<str:recipe_id>', userRecipeView.GeteRecipeById, name="recipe_rating_id")
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

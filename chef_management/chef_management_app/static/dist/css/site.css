@@ -132,3 +132,12 @@ button {
     height: 650px;
     background-color: #EDEEF3;
 }
+
+.checked {
+  color: red;
+}
+
+.my-btn {
+  background-color: inherit !important;
+  border: 0 !important;
+}
