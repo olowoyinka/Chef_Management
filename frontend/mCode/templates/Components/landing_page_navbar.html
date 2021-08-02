@@ -1,0 +1,100 @@
+<!-- landing_page_navbar.html -->
+
+<!-- mobile -->
+<div class="mobile">
+    <div class="d-flex py-2 align-items-end">
+        <button type="button" class="btn mr-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="bi bi-justify-left"></i>
+        </button>
+        <div>
+            <a href="/">
+                <img src="../../static/dist/img/Logo/Logo.png" alt="RecipeCo logo">
+            </a>
+        </div>
+    </div>
+
+    <!-- Include landing_page_sidenav -->
+    {% include "./landing_page_sidenav.html" %}
+
+</div>
+
+<!-- desktop -->
+<div class="desktop">
+    <div class="d-flex py-2 align-items-end justify-content-between">
+        <div>
+            <a href="/">
+                <img src="../../static/dist/img/Logo/Logo.png" alt="RecipeCo logo">
+            </a>
+        </div>   
+        <div class=""> <!-- Search section -->
+            <form action="">
+                <div class="input-group">
+                    <input type="text" name="search" placeholder="Search for anything" class="form-control">
+                    <button type="button" class="btn btn-outline-secondary">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="d-flex">
+            <div class="dropdown me-3">
+                <a href="#" class="dropdwon-toggle" role="button" id="category-dropdown"
+                 data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                <div class="dropdown-menu" aria-labelledby="category-dropdown">
+                    <div class="mb-3">
+                        <a class="mb-3">CONTINENTS</a>
+                        <div class="d-flex">
+                            <div>
+                                <a href="">Asia</a>
+                            </div>
+                            <div>
+                                <a href="">Europe</a>
+                            </div>
+                            <div>
+                                <a href="">Latin America</a>
+                            </div>
+                            <div>
+                                <a href="">Local</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <a class="mb-3">COUNTRIES</a>
+                        <div class="d-flex">
+                            <div>
+                                <a href="">Italy</a>
+                            </div>
+                            <div>
+                                <a href="">Japan</a>
+                            </div>
+                            <div>
+                                <a href="">Colombia</a>
+                            </div>
+                            <div>
+                                <a href="">Bhutan</a>
+                            </div>
+                            <div>
+                                <a href="">See more...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown me-3">
+                <a href="#" class="dropdwon-toggle" role="button" id="account-dropdown"
+                 data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                 <ul class="dropdown-menu" aria-labelledby="account-dropdown">
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/vendor_register">Become a vendor</a></li>
+                 </ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    <div class="d-flex py-2">
+        
+    </div>
+</div>
