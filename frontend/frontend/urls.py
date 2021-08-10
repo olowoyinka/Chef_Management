@@ -26,7 +26,14 @@ urlpatterns = [
     path('', views.guest_home, name="guest_home"),
     path('login', views.login, name="login"),
     path('register', views.register, name="register"),
-    path('vendor_register', views.vendor_register, name="vendor_register"),
+    path('vendor-register', views.vendor_register, name="vendor-register"),
+
+    #Chef 
+    path('chef/dashboard', views.chef_home, name="chef-home"),
+    path('chef/new', views.new_recipe, name="new-recipe"),
+    path('chef/recipe', views.recipe, name="recipe"),
+    path('chef/update', views.update_delete, name="update recipe"),
+    path('chef/customer_feedback', views.customer_feedback, name="customerfeedback"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

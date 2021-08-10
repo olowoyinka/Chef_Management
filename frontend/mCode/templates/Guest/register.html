@@ -6,9 +6,22 @@
 {% endblock title %}
 
 {% block main_content %}
+<style scoped>
+    body{
+        background-color: #DA9871;
+        overflow-x: hidden;
+    }
+    .container{
+        all: unset;
+    }
+    .auth-bg {
+        padding-left: 10rem;
+        padding-right: 10rem;
+    }
+</style>
 
 <div class="row">
-    <div class="col-md-6 mt-2 auth-bg">
+    <div class="col-md-8 auth-bg">
         <div class="d-flex mb-5 mt-3 align-items-end">
             <!-- Include back button -->
             {% include "../Components/back_button.html" %}
@@ -59,8 +72,11 @@
             </form>
         </div>
     </div>
-    <div class="col-md-6 d-grid align-items-center justify-items-center">
-        <img src="../../static/dist/img/User design.png" alt="design" class="w-50 desktop">
+    <div class="col-md-4 d-grid align-items-center justify-items-center">
+        <div class="auth-text-all">
+            <p class="auth-text-title"><i>RecipeCo</i></p>
+            <p>Discover recipes from the best chef from all round the world</p>
+        </div>
     </div>
 </div>
   

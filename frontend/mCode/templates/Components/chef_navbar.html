@@ -1,0 +1,54 @@
+<!-- chef_navbar.html -->
+
+<!-- mobile -->
+<div class="mobile">
+    <div class="d-flex py-2 align-items-end justify-content-between">
+        <div class="d-flex align-items-end">
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#cmsModal">
+                <i class="bi bi-justify-left"></i>
+            </button>
+            <div>
+                <a href="/">
+                    <img src="../../static/dist/img/Logo/Logo.png" alt="RecipeCo logo">
+                </a>
+            </div>
+        </div>
+
+        <!-- Include chef_mobile_sidenav -->
+        {% include "./chef_mobile_sidenav.html" %}
+
+        <div class="dropdown">
+            <button type="button" class="btn d-flex border align-items-baseline" role="button" id="mobile-logout-dropdown"
+            data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person"></i>
+                <p class="mb-0 mx-1 small">chefname</p>
+                <i class="bi bi-chevron-down"></i>
+            </button>
+                <ul class="dropdown-menu nav--dropdown border-0" aria-labelledby="mobile-logout-dropdown">
+                <li class="ms-2"><a href class="dd-link">Logout</a></li>
+                </ul>
+        </div>
+    </div>
+</div>
+
+<!-- desktop -->
+<div class="desktop">
+    <div class="d-flex py-2 align-items-end justify-content-between">
+        <div>
+            <a href="/">
+                <img src="../../static/dist/img/Logo/Logo.png" alt="RecipeCo logo">
+            </a>
+        </div>
+        <div class="dropdown">
+            <button type="button" class="btn d-flex border align-items-baseline" role="button" id="mobile-logout-dropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person"></i>
+                <p class="mb-0 mx-1 small">chefname</p>
+                <i class="bi bi-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu nav--dropdown border-0" aria-labelledby="mobile-logout-dropdown">
+                <li class="ms-2"><a href class="dd-link">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

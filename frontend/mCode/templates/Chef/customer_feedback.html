@@ -1,0 +1,86 @@
+<!-- new_recipe.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    Customer feedback | RecipeCo
+{% endblock title %}
+
+{% block main_content %}
+
+    <!-- Include chef_navbar -->
+    {% include "../Components/chef_navbar.html" %}
+
+    <!-- Body -->
+    <div class="row">
+        <div class="col-md-2 desktop">
+
+            <!-- Include chef_desktop_sidenav -->
+            {% include "../Components/chef_desktop_sidenav.html" %}
+
+        </div>
+        <div class="col-md-10">
+            <div>
+                <p class="recipeco-black fs-4">Custoer feedback</p>
+            </div>
+            <div class="mx-5 mt-2 row px-8">
+                <div class="">
+                    <div class="d-flex mb-5">
+                        <button onclick="goBack()" class="me-2 btn"">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                        <p class="recipeco-black fs-5">Name of recipe</p>
+                    </div>
+                    <div>
+                        <div class="mb-5">
+                            <p class="recipeco-black fs-5">Ratings</p>
+                            <hr>
+                        </div>
+                        <div>
+                            <div>
+                                <p class="recipeco-black fs-5">Comments</p>
+                                <hr>
+                            </div>
+                            <div>
+                                <div class="d-flex mb-4">
+                                    <div class="me-2">
+                                        <img src="#" alt="" class="rounded-circle" width="50" height="50">
+                                    </div>
+                                    <div>
+                                        <p class="mb-0 ection-text">Username 1</p>
+                                        <p class="mb-3 fw-light section-text">2 weeks ago</p>
+                                        <p class="mb-0 recipeco-black">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                            Commodi ut aperiam aspernatur praesentium suscipit, officia voluptates at sequi 
+                                            accusantium reprehenderit modi molestiae velit vero ea corporis fuga minus dignissimos iure!
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="me-2">
+                                        <img src="#" alt="" class="rounded-circle" width="50" height="50">
+                                    </div>
+                                    <div>
+                                        <p class="mb-0 ection-text">Username 1</p>
+                                        <p class="mb-3 fw-light section-text">2 weeks ago</p>
+                                        <p class="mb-0 recipeco-black">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                            Commodi ut aperiam aspernatur praesentium suscipit, officia voluptates at sequi 
+                                            accusantium reprehenderit modi molestiae velit vero ea corporis fuga minus dignissimos iure!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock main_content %}
+
+
+
+
+

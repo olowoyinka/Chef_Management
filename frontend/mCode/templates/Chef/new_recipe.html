@@ -1,0 +1,126 @@
+<!-- new_recipe.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    Create new recipe | RecipeCo
+{% endblock title %}
+
+{% block main_content %}
+
+    <!-- Include chef_navbar -->
+    {% include "../Components/chef_navbar.html" %}
+
+    <!-- Body -->
+    <div class="row">
+        <div class="col-md-2 desktop">
+
+            <!-- Include chef_desktop_sidenav -->
+            {% include "../Components/chef_desktop_sidenav.html" %}
+
+        </div>
+        <div class="col-md-10">
+            <div>
+                <p class="recipeco-black fs-4">New recipe</p>
+            </div>
+            <div class="mx-5 mt-2 row px-8">
+                <div class="">
+                    <div class="mb-5">
+                        <button onclick="goBack()" class="me-2 btn">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                    </div>
+                        <form action="">
+                            <div class="mb-5">
+                                <p class="section-text fs-5">Recipe basics</p>
+                                <hr>
+                                <div class="mb-3 d-grid justify-items-center align-items-center text-center">
+                                    <div>
+                                        <img src="" id="preview" class="rounded" width="150" height="150">
+                                    </div>
+                                    <div>
+                                        <label for="vphoto" class="text-primary small">
+                                            <input type="file" id="vphoto" class="d-none">
+                                            Select meal photo
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="name" class="section-text">Recipe name</label>
+                                    <input type="text" class="form-control" name="name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="price" class="section-text">Meal price</label>
+                                    <input type="text" class="form-control" name="price">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="duration" class="section-text">Duration</label>
+                                    <input type="text" class="form-control" name="duration">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="section-text">Description</label>
+                                    <textarea name="description" rows="3" class="form-control"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="continents" class="section-text">Continents</label>
+                                    <div class="btn-group-toggle mb-3" data-toggle="buttons">
+                                        <label class="btn continent-btn me-2">
+                                            <input type="checkbox" name="asia" value="Asia" class="d-none">
+                                            Asia
+                                        </label>
+                                        <label class="btn continent-btn me-2">
+                                            <input type="checkbox" name="europe" value="Europe" class="d-none">
+                                            Europe
+                                        </label>
+                                        <label class="btn continent-btn me-2">
+                                            <input type="checkbox" name="Latin-america" value="Latin america" class="d-none">
+                                            Latin america
+                                        </label>
+                                        <label class="btn continent-btn me-2">
+                                            <input type="checkbox" name="local" value="Local" class="d-none">
+                                            Local
+                                        </label>
+                                    </div>
+                                </div>    
+                                <div>
+                                    <label for="country" class="section-text">Country</label>
+                                    <select name="country" class="form-select">
+                                        <option selected>Please select a country</option>
+                                        <option value="">Italy</option>
+                                        <option value="">Japan</option>
+                                        <option value="">Singapore</option>
+                                        <option value="">India</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-5">
+                                <p class="section-text fs-5">Recipe details</p>
+                                <hr>
+                                <div class="mb-3">
+                                    <label for="ingredients" class="section-text">Ingredients</label>
+                                    <textarea name="ingredients" cols="30" rows="10" class="form-control"></textarea>
+                                </div>
+                                <div class="mb-3">    
+                                    <label for="method" class="section-text">Method</label>
+                                    <textarea name="method" cols="30" rows="10" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button class="btn border border-secondary me-2" type="submit">Cancel</button>
+                                <button class="btn bg-primary text-white" type="submit">Create</button>
+                            </div>
+
+                        </form>
+
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock main_content %}
+
+
+
+
+
