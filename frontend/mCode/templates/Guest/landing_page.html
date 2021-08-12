@@ -15,28 +15,83 @@
         <input type="text" name="search" placeholder="Search for anything" class="form-control">
     </div>
 
-    <!-- Continents section -->
-    <div>
-        <h2>Continents</h2>
-        <div class="coontinent-card">
-            <div>
-                <img src="" alt="">
-            </div>
-            <div>
-                <p></p>
+    <!-- Category section -->
+    <div class="container my-3">
+        <div class="px-8">
+            {% include "../Components/category_section.html" %}
+        </div>
+    </div>
+
+    <!-- Hero section -->
+    <div class="container my-3 mb-5">
+        <div class="hero-image">
+            <div class="hero-text px-5">
+                <p class="fs-1 fw-bold">Find recipes <br>for your perfect meal</p>
+                <p>Book appointment from our top chefs to get premium recipes</p>
+                <a href="/register" class="auth-btn">Create account</a>
             </div>
         </div>
     </div>
 
     <!-- Top recipe section -->
-    <div>
-        <h2>Top recipes</h2>
-        <div class="tr-card">
-            <div>
-                <img src="" alt="">
+    <div class="container mb-5">
+        <p class="fs-5">Top recipes</p>
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Include recipe card -->
+                {% include "../Components/recipe_card.html" %}
             </div>
-            <div>
+            <div class="col-md-3">
+                <!-- Include recipe card -->
+                {% include "../Components/recipe_card.html" %}
+            </div>
+            <div class="col-md-3">
+                <!-- Include recipe card -->
+                {% include "../Components/recipe_card.html" %}
+            </div>
+            <div class="col-md-3">
+                <!-- Include recipe card -->
+                {% include "../Components/recipe_card.html" %}
+            </div>
+        </div>
+    </div>
 
+    <!--Chef section-->
+    <div class="container mb-5">
+        <div class="bg-dark px-3 py-4 rounded text-light">
+            <p class="fs-3 fw-bold">Earn money by listing your recipes</p>
+            <p>Sell your recipes through bookings or deliver the meal</p>
+            <a href="chef/register" class="auth-link">
+                Start listing your recipes
+                <i class="ms-2 bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!--More section-->
+    <div class="container mb-5">
+        <p class="fs-5">Top categories</p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="subhero-image-1">
+                    <a href="" class="btn btn-light subhero-btn">
+                        Indian
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="subhero-image-2">
+                    <a href="" class="btn btn-light subhero-btn">
+                        Europe
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="subhero-image-3">
+                    <a href="" class="btn btn-light subhero-btn">
+                        Local
+                    </a>
+                </div>
             </div>
         </div>
     </div>

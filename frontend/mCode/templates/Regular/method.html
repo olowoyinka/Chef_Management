@@ -1,0 +1,75 @@
+<!-- Method.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    Recipe-name | RecipeCo
+{% endblock title %}
+
+{% block main_content %}
+
+    <!-- Include chef_navbar -->
+    {% include "../Components/regular_navbar.html" %}
+
+    <!-- Body -->
+    <div class="">
+        <div class="d-flex mb-5">
+            <div class="col-md-2 desktop">
+
+                <!-- Include chef_desktop_sidenav -->
+                {% include "../Components/regular_sidenav.html" %}
+
+            </div>
+            <div class="col-md-10">
+                <div class="my-5 px-8">
+                    <div class="p-3 recipe-box">
+                        <div class="d-flex mb-5 justify-content-between">
+                            <div>
+                                <!-- back_button.html -->
+                                {% include "../Components/back_button.html" %}
+                            </div>
+                            <div>       
+                                <p class="recipeco-black text-center"><span class="fw-bold">Method for </span>Recipename</p>
+                            </div>
+                            <div></div>
+                        </div>
+                        <div class="mb-3 px-5">
+                            <ul class="list-group list-group-numbered">
+                                <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+                                <li>Odio totam excepturi aliquid</li>
+                                <li>Eligendi magni porro, quasi aliquam cumque eius quae accusantium vitae ullam.</li>
+                                <li>Veniam sed neque doloribus animi commodi ullam.</li>
+                                <li>Odio totam excepturi aliquid</li>
+                                <li>Eligendi magni porro, quasi aliquam cumque eius quae accusantium vitae ullam.</li>
+                                <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-5 mb-3">
+                        <div>
+                            <p class="section-text fs-5">Recipes</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="col-md-4">
+                            <!-- Include recipe card -->
+                            {% include "../Components/recipe_card.html" %}
+                        </div>
+                        <div class="col-md-4">
+                            <!-- Include recipe card -->
+                            {% include "../Components/recipe_card.html" %}
+                        </div>
+                        <div class="col-md-4">
+                            <!-- Include recipe card -->
+                            {% include "../Components/recipe_card.html" %}
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock main_content %}
+
+
+
+
+

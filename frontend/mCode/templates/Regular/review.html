@@ -1,4 +1,4 @@
-<!-- new_recipe.html -->
+<!-- Customer feedback.html -->
 {% extends 'base.html' %}
 
 {% block title %}
@@ -8,30 +8,31 @@
 {% block main_content %}
 
     <!-- Include chef_navbar -->
-    {% include "../Components/chef_navbar.html" %}
+    {% include "../Components/regular_navbar.html" %}
 
     <!-- Body -->
-    <div class="row">
+    <div class="d-flex mb-5">
         <div class="col-md-2 desktop">
 
             <!-- Include chef_desktop_sidenav -->
-            {% include "../Components/chef_desktop_sidenav.html" %}
+            {% include "../Components/regular_sidenav.html" %}
+
 
         </div>
         <div class="col-md-10">
-            <div>
-                <p class="recipeco-black fs-4">Customer feedback</p>
-            </div>
-            <div class="mx-5 mt-2 row px-8">
-                <div class="">
-                    <div class="d-flex mb-5">
-
-                        <!-- back_button.html -->
-                        {% include "../Components/back_button.html" %}
-
-                        <p class="recipeco-black fs-5">Name of recipe</p>
+            <div class="my-5 px-8">
+                <div class="p-3 recipe-box">
+                    <div class="d-flex mb-5 justify-content-between">
+                        <div>
+                            <!-- back_button.html -->
+                            {% include "../Components/back_button.html" %}
+                        </div>
+                        <div>       
+                            <p class="recipeco-black text-center"><span class="fw-bold">Customer feedback for </span>Recipename</p>
+                        </div>
+                        <div></div>
                     </div>
-                    <div>
+                    <div class="mb-3 px-5">
                         <div class="mb-5">
                             <p class="recipeco-black fs-5">Ratings</p>
                             <hr>

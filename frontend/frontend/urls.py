@@ -26,14 +26,26 @@ urlpatterns = [
     path('', views.guest_home, name="guest_home"),
     path('login', views.login, name="login"),
     path('register', views.register, name="register"),
-    path('vendor-register', views.vendor_register, name="vendor-register"),
+    path('chef/register', views.vendor_register, name="chef register"),
 
     #Chef 
     path('chef/dashboard', views.chef_home, name="chef-home"),
-    path('chef/new', views.new_recipe, name="new-recipe"),
-    path('chef/recipe', views.recipe, name="recipe"),
+    path('recipe/new', views.new_recipe, name="new-recipe"),
+    path('chef/recipe/recipename', views.recipe, name="recipe"),
     path('chef/update', views.update_delete, name="update recipe"),
     path('chef/customer_feedback', views.customer_feedback, name="customerfeedback"),
+
+    #Regular 
+    path('home', views.regular_home, name="Regular home"),
+    path('recipe/recipename', views.recipe, name="View recipe"),
+    path('chefname', views.chef, name="chef"),
+    path('ingredients/recipename', views.ingredient, name="ingredient"),
+    path('method/recipename', views.method, name="method"),
+    path('review/recipename', views.review, name="review"),
+    path('result', views.result, name="result"),
+    path('username/favourite', views.favourite, name="favourite"),
+    
+    path('username/quiz/home', views.quiz_home, name="quiz home"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

@@ -1,0 +1,89 @@
+<!-- Favourite.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    Favourite | RecipeCo
+{% endblock title %}
+
+{% block main_content %}
+
+    <!-- Include chef_navbar -->
+    {% include "../Components/regular_navbar.html" %}
+
+    <!-- Body -->
+    <div class="">
+        <div class="d-flex mb-5">
+            <div class="col-md-2 desktop">
+
+                <!-- Include chef_desktop_sidenav -->
+                {% include "../Components/regular_sidenav.html" %}
+
+            </div>
+            <div class="col-md-10">
+
+                <!-- Favourite section -->
+                <div class="mb-5">
+                    <div class="d-flex justify-content-between my-5">
+                        <div>
+                            <p class="section-text fs-4">Favourite</p>
+                        </div>
+                        <div class="d-flex align-items-end me-4">
+                            <input type="text" name="search" class="me-2 searchbar" placeholder="Search for anything">
+                            <button class="btn">
+                                <i class="bi bi-funnel"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="col-md-3">
+                            <!-- Include recipe card -->
+                            {% include "../Components/recipe_card.html" %}
+                        </div>
+                        <div class="col-md-3">
+                            <!-- Include recipe card -->
+                            {% include "../Components/recipe_card.html" %}
+                        </div>
+                        <div class="col-md-3">
+                            <!-- Include recipe card -->
+                            {% include "../Components/recipe_card.html" %}
+                        </div>
+                        <div class="col-md-3">
+                            <!-- Include recipe card -->
+                            {% include "../Components/recipe_card.html" %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related section -->
+                <div class="mb-5">
+                    <p class="fs-5">Related recipes</p>
+                    <div class="d-flex">
+                        <div class="col-md-3">
+                            <!-- Include recipe card -->
+                            {% include "../Components/recipe_card.html" %}
+                        </div>
+                        <div class="col-md-3">
+                            <!-- Include recipe card -->
+                            {% include "../Components/recipe_card.html" %}
+                        </div>
+                        <div class="col-md-3">
+                            <!-- Include recipe card -->
+                            {% include "../Components/recipe_card.html" %}
+                        </div>
+                        <div class="col-md-3">
+                            <!-- Include recipe card -->
+                            {% include "../Components/recipe_card.html" %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+{% endblock main_content %}
+
+
+
+
+
