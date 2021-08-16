@@ -46,6 +46,14 @@ urlpatterns = [
     path('username/favourite', views.favourite, name="favourite"),
     
     path('username/quiz/home', views.quiz_home, name="quiz home"),
+
+    path('booking/recipename', views.book_info, name="booked recipe"),
+    path('booking/recipename/type', views.book_type, name="booked recipe type"),
+    path('booking/recipename/schedule', views.book_schedule, name="booked recipe schedule"),
+    path('booking/recipename/payment', views.book_payment, name="booked recipe payment"),
+    path('booking/recipename/confirmation', views.book_confirmation, name="booked recipe confirmation"),
+
+    path('booking/inbox', views.inbox, name="inbox"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

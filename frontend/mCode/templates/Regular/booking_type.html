@@ -1,0 +1,87 @@
+<!-- booking_type.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    Book recipe | RecipeCo
+{% endblock title %}
+
+{% block main_content %}
+    <!-- Include chef_navbar -->
+    {% include "../Components/regular_navbar.html" %}
+
+    <style scoped>
+        dd{
+            all: unset;
+        }
+    </style>
+
+    <!-- Body -->
+    <div class="">
+        <div class="d-flex mb-5">
+            <div class="col-md-2 desktop">
+
+                <!-- Include chef_desktop_sidenav -->
+                {% include "../Components/regular_sidenav.html" %}
+
+            </div>
+            <div class="col-md-10">
+                <div class="mt-5 px-8">
+                    <div class="p-3 recipe-box">
+                        <div class="mb-5">
+                            <div>
+                                <!-- back_button.html -->
+                                {% include "../Components/back_button.html" %}
+                            </div>
+                        </div>
+                        <div class="mb-3 px-5">
+                            <p class="recipeco-black">Select booking type</p>
+                            <hr class="mb-2">
+                            <div class="d-flex">
+                                <div class="d-grid type-section me-2">
+                                    <input type="radio" name="checks" class="btn-check" id="option1" autocomplete="off">
+                                    <label for="option1" class="btn d-grid">
+                                        <dd class="auth-link small mb-2">ORDER</dd>
+                                        <dd class="auth-link fw-bold fs-5">N500</dd>
+                                        <dd class="">Buy this meal</dd>
+                                    </label>
+                                </div>
+                                <div class="d-grid type-section me-2">
+                                    <input type="radio" name="checks" class="btn-check" id="option2" autocomplete="off">
+                                    <label for="option2" class="btn d-grid">
+                                        <dd class="auth-link small mb-2">REGULAR</dd>
+                                        <dd class="auth-link fs-5 fw-bold">N1500</dd>
+                                    <ul class="ps-0">
+                                        <li>Ingredients</li>
+                                        <li>Methods</li>
+                                    </ul>
+                                    </label>
+                                </div>
+                                <div class="d-grid type-section me-2">
+                                    <input type="radio" name="checks" class="btn-check" id="option3" autocomplete="off">
+                                    <label for="option3" class="btn d-grid">
+                                        <dd class="auth-link small mb-2">VIP</dd>
+                                    <dd class="auth-link fs-5 fw-bold">N5000</dd>
+                                    <ul class="ps-0">
+                                        <li>Ingredients</li>
+                                        <li>Methods</li>
+                                        <li>Live session/Video tutorial</li>
+                                    </ul>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <a href="/booking/recipename/schedule" class="btn btn-secondary">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock main_content %}
+
+
+
+
+

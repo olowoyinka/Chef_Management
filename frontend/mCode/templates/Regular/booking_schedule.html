@@ -1,0 +1,60 @@
+<!-- booking_schedule.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    Book recipe | RecipeCo
+{% endblock title %}
+
+{% block main_content %}
+    <!-- Include chef_navbar -->
+    {% include "../Components/regular_navbar.html" %}
+
+    <!-- Body -->
+    <div class="">
+        <div class="d-flex mb-5">
+            <div class="col-md-2 desktop">
+
+                <!-- Include chef_desktop_sidenav -->
+                {% include "../Components/regular_sidenav.html" %}
+
+            </div>
+            <div class="col-md-10">
+                <div class="mt-5 px-8">
+                    <div class="p-3 recipe-box">
+                        <div class="mb-5">
+                            <div>
+                                <!-- back_button.html -->
+                                {% include "../Components/back_button.html" %}
+                            </div>
+                        </div>
+                        <div class="mb-3 px-5">
+                            <p class="recipeco-black">Booking schedule</p>
+                            <hr class="mb-2">
+                            <div class="mb-3">
+                                <p class="section-text">Select a date</p>
+                                <input type="date" class="form-control w-50" id="theDate" value="">
+                            </div>
+                            <div class="mb-3">
+                                <p class="section-text">Select a time</p>
+                                <input type="time" class="form-control w-50" id="theTime" value="">
+                            </div>
+
+                            <div class="d-flex justify-content-end">
+                                <a href="/booking/recipename/payment" class="btn btn-secondary">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('theDate').value = moment().format('YYYY-MM-DD');
+        document.getElementById('theTime').value = moment().format('HH:mm');
+    </script>
+{% endblock main_content %}
+
+
+
+
+

@@ -59,3 +59,23 @@ def favourite(request):
 
 def result(request):
     return render(request, "Regular/result.html")
+
+
+#Book appointment
+def book_info(request):
+    return render(request, "Regular/booking_recipe.html")
+
+def book_type(request):
+    return render(request, "Regular/booking_type.html")
+
+def book_schedule(request):
+    return render(request, "Regular/booking_schedule.html")
+
+def book_payment(request):
+    return render(request, "Regular/booking_payment.html")
+
+def book_confirmation(request):
+    return render(request, "Regular/booking_confirmation.html")
+
+def inbox(request):
+    return render(request, "Regular/inbox.html")

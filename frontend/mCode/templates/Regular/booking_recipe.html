@@ -1,0 +1,65 @@
+<!-- booking_recipe.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    Book recipe | RecipeCo
+{% endblock title %}
+
+{% block main_content %}
+    <!-- Include chef_navbar -->
+    {% include "../Components/regular_navbar.html" %}
+
+    <!-- Body -->
+    <div class="">
+        <div class="d-flex mb-5">
+            <div class="col-md-2 desktop">
+
+                <!-- Include chef_desktop_sidenav -->
+                {% include "../Components/regular_sidenav.html" %}
+
+            </div>
+            <div class="col-md-10">
+                <div class="mt-5 px-8">
+                    <div class="p-3 recipe-box">
+                        <div class="mb-5">
+                            <div>
+                                <!-- back_button.html -->
+                                {% include "../Components/back_button.html" %}
+                            </div>
+                        </div>
+                        <div class="mb-3 px-5">
+                            <p class="recipeco-black">Recipe info</p>
+                            <hr class="mb-2">
+                            <div class="d-grid justify-content-center mb-4">
+                                <img src="" alt="" class="recipe-image mb-3" width="124" height="124">
+                                <p class="recipco-black fs-4 mb-2 text-center">@chefname</p>
+                                <p class="section-text text-center mb-2">
+                                    <span class="recipeco-black me-1">x</span>Appointments
+                                </p>
+                                <p class="recipeco-black text-center">Active 2 hrs ago</p>
+                            </div>
+                            <div class="mb-3 d-flex">
+                                <div class="me-4">
+                                    <img src="" alt="" class="recipe-image rounded-circle" width="80" height="80">
+                                </div>
+                                <div>
+                                    <p class="recipco-black fs-5 mb-2">Recipe name</p>
+                                    <p class="text-secondary">Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus assumenda quibusdam voluptate.</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <a href="/booking/recipename/type" class="btn btn-secondary">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock main_content %}
+
+
+
+
+
